@@ -52,7 +52,7 @@ def get_text(author: str, title: str, skip: int = 0, limit: int = 100):
         for row in c.execute('SELECT DISTINCT strings FROM library WHERE name=? AND title=?', (author, title,)):
             returned.append(row[0].split(f'\n'))
 
-        if skip > limit or skip > len(returned):
+        if skip > limit or skip > len(returned[0]):
             return HTTPException(status_code=400, detail="Boundaries are not correct")
 
         return returned[0][skip:skip+limit]
